@@ -1,11 +1,10 @@
 const express = require('express');
-const routes = express.Router();
+const router = express.Router();
 
 const list = require('../utils/list');
 
-routes.get('/', (req, res) => {
+router.get('/', (req, res) => {
   res.send({
-    error: false,
     endpoints: {
       masjid: { path: '/api/masjid/:provinsi' },
       mushalla: { path: '/api/mushalla:provinsi' }
@@ -17,4 +16,4 @@ routes.get('/', (req, res) => {
   });
 });
 
-module.exports = routes;
+module.exports = router;
