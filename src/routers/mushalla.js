@@ -1,10 +1,10 @@
-const cheerio = require('cheerio');
 const express = require('express');
 const router = express.Router();
 
 const Provinsi = require('../utils/list');
+const searchMushalla = require('../utils/mushalla');
 
-router.get('/api/mushalla/:provinsi', (req, res) => {
+router.get('/api/mushalla/:provinsi', async (req, res) => {
   const { provinsi } = req.params;
   const { page } = req.query;
 
@@ -17,9 +17,9 @@ router.get('/api/mushalla/:provinsi', (req, res) => {
     error: 'Provinsi tidak ditemukan tolong cek list provinsi di endpoint utama (/)'
   });
 
-  res.send({
-    status: 'OK'
-  });
+  const result = await searchMushalla(provinsi, page);
+
+  res.send({ note: 'Semakin tinggi angka pagenya semakin tidak lengkap datanya', error: result.error, provinsi: provinsi, maxPage: result.page, result: result.data, });
 });
 
 module.exports = router;
