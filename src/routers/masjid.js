@@ -8,19 +8,18 @@ router.get('/api/masjid/:provinsi', async (req, res) => {
   const { provinsi } = req.params;
   const { page } = req.query;
 
-  if (!provinsi) return res.send({ error: "Parameter provinsi tidak boleh kosong" });
-  if (!page) return res.send({ error: "Query Page tidak boleh kosong" });
+  if (!provinsi || !page) return res.send({
+    error: 'Query Page dan atau Parameter Provinsi tidak boleh kosong'
+  });
 
   const isValidProvince = list.find(prov => prov == provinsi);
-
   if (!isValidProvince) return res.send({
     error: 'Provinsi tidak ditemukan tolong cek list provinsi di endpoint utama (/)'
   });
 
   const result = await searchMasjid(provinsi, page);
 
-
-  res.send({ error: result.error, provinsi: provinsi, maxPage: result.page, result: result.data, });
+  res.send({ note: 'Semakin tinggi angka pagenya semakin tidak lengkap datanya', error: result.error, provinsi: provinsi, maxPage: result.page, result: result.data, });
 });
 
 module.exports = router;
