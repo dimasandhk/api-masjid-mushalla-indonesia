@@ -9,9 +9,9 @@ router.get('/api/masjid/:provinsi', async (req, res) => {
   const { page, detail } = req.query;
 
   let useDetail;
-  if (!detail) useDetail = true;
+  useDetail = (detail === 'true');
 
-  useDetail = (detail.toLowerCase() === 'true');
+  if (!detail) useDetail = true;
 
   if (!provinsi || !page) return res.send({
     error: 'Query Page dan atau Parameter Provinsi tidak boleh kosong'
