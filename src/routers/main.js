@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/list-provinsi', (req, res) => {
-  res.send({ list });
+  res.send({ note: 'Nama Provinsi harus sama persis dengan yang ada di list ini', list });
 });
 
 module.exports = router;
